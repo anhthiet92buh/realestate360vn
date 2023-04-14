@@ -1,8 +1,1 @@
-{
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@routes": ["./screen/routes"],
-    }
-  }
-}
+{}
