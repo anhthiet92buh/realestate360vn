@@ -1,14 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, View} from 'react-native';
+
+import {YoutubeComponent} from '../../components';
 
 const HomeScreen = () => {
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={styles.container}>
+      <YoutubeComponent />
     </View>
-  )
-}
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({})
