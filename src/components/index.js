@@ -1,3 +1,3 @@
-import YoutubeComponent from './youtube';
+import {YoutubeComponent} from './youtube';
 
 export {YoutubeComponent};
