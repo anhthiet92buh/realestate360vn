@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import {YoutubeComponent} from '../../components';
+import { YoutubeComponent } from '../../components';
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <YoutubeComponent />
+      <YoutubeComponent videoId={"wJvNMSmJwAg"} />
     </View>
   );
 };

@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import WebView from 'react-native-webview';
 
-const YoutubeComponent = () => {
+const YoutubeComponent = ({ videoId }) => {
   return (
     <View style={styles.container}>
       <WebView
-        source={{uri: 'https://www.youtube.com/embed/REwfPnF_txk'}}
+        source={{ uri: `https://www.youtube.com/embed/${videoId}` }}
         allowsFullscreenVideo={true}
         allowsInlineMediaPlayback={true}
       />
