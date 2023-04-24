@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Dimensions, Text} from 'react-native';
-// import VerticalViewPager from "react-native-vertical-view-pager";
+import {observer} from 'mobx-react';
 import VerticalViewPager from 'react-native-pager-view';
-// import Video from 'react-native-video';
 
-import {YoutubeComponent} from '../../components';
+import {YoutubeComponent, LoadingComponent} from '../../components';
+import {useStore} from '../../context';
 
 const {width, height = height - 50} = Dimensions.get('window');
 
@@ -27,15 +27,27 @@ const data = [
   },
 ];
 const HomeScreen = () => {
+  const {
+    youtubeStore: {ytbVideos, loadingYTBVideos, fetchYTBVideos, clearYTBVideos},
+  } = useStore();
+
   const [positionPage, setPositionPage] = useState(0);
 
-  // return (
-  //   <YoutubeComponent videoId={"rVZTmJIU3EI"} />
-  // )
+  useEffect(() => {
+    fetchYTBVideos();
+
+    return () => {
+      clearYTBVideos();
+    };
+  }, []);
 
   const onPageSelected = ({nativeEvent}) => {
     setPositionPage(nativeEvent?.position);
   };
+
+  if (loadingYTBVideos) {
+    return <LoadingComponent />;
+  }
 
   return (
     <View style={styles.container}>
@@ -47,33 +59,7 @@ const HomeScreen = () => {
         {data?.map((item, index) => {
           const isSelected = index === positionPage;
           return (
-            <View
-              key={index?.toString()}
-              style={[
-                styles.page_container,
-                {
-                  // backgroundColor: item.bg_color,
-                },
-              ]}>
-              {/* <View style={styles.video}>
-                  <Video
-                    source={{
-                      //  uri: "https://drive.google.com/file/d/1dO3vE8iOz8xoikcNeaJYhbQsUv3kbOgJ/view"
-                      // uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-                      // uri: item.video_url
-                      uri: `https://www.youtube.com/embed/${item}`
-                    }}
-                    rate={1.0}
-                    volume={1.0}
-                    isMuted={true}
-                    resizeMode="contain"
-                    shouldPlay
-                    bounce={false}
-                    isLooping
-                    style={styles.videoPlayer}
-                    useNativeControls={false}
-                  />
-                </View> */}
+            <View key={index?.toString()} style={styles.page_container}>
               <YoutubeComponent isPlay={isSelected} videoId={item?.uri} />
               <Text style={styles.txtScreen}>{`Screen ${index + 1}`}</Text>
             </View>
@@ -85,9 +71,6 @@ const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  // },
   container: {
     width: '100%',
     height,
@@ -120,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default observer(HomeScreen);
