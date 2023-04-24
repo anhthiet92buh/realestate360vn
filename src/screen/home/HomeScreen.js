@@ -28,7 +28,12 @@ const data = [
 ];
 const HomeScreen = () => {
   const {
-    youtubeStore: {ytbVideos, loadingYTBVideos, fetchYTBVideos, clearYTBVideos},
+    youtubeStore: {
+      // ytbVideos,
+      loadingYTBVideos,
+      fetchYTBVideos,
+      clearYTBVideos,
+    },
   } = useStore();
 
   const [positionPage, setPositionPage] = useState(0);
