@@ -19,7 +19,6 @@ const YoutubeComponent = ({isPlay, videoId}) => {
         height={300}
         play={isPlay}
         videoId={videoId}
-        playList={'PLjYlQADz2lAK_RusL5Nxsr3JtlnFpy8AE'}
         pointerEvents="none"
         fullscreen={true}
         loop={true}

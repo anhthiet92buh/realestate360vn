@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, ActivityIndicator} from 'react-native';
 
-const LoadingComponent = () => {
+const LoadingComponent = ({color}) => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="small" color="#cccccc" />
+      <ActivityIndicator size="large" color={color || '#cccccc'} />
     </View>
   );
 };
@@ -13,7 +13,7 @@ export default LoadingComponent;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     paddingVertical: 5,
   },
 });

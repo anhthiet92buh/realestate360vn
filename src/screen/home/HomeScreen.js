@@ -1,57 +1,49 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Dimensions, Text} from 'react-native';
-import {observer} from 'mobx-react';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Dimensions, Text } from 'react-native';
+import { observer } from 'mobx-react';
+import { useNavigationState } from '@react-navigation/native'
 import VerticalViewPager from 'react-native-pager-view';
 
-import {YoutubeComponent, LoadingComponent} from '../../components';
-import {useStore} from '../../context';
+import { YoutubeComponent, LoadingComponent } from '../../components';
+import { useStore } from '../../context';
 
-const {width, height = height - 50} = Dimensions.get('window');
+const { width, height = height - 50 } = Dimensions.get('window');
 
-const data = [
-  {
-    uri: 'rVZTmJIU3EI',
-    bg_color: 'red',
-  },
-  {
-    uri: 'rVZTmJIU3EI',
-    bg_color: 'blue',
-  },
-  {
-    uri: 'rVZTmJIU3EI',
-    bg_color: 'pink',
-  },
-  {
-    uri: 'rVZTmJIU3EI',
-    bg_color: 'orange',
-  },
-];
 const HomeScreen = () => {
+  const indexRoute = useNavigationState(state => state?.index);
+
+  console.log("indexRoute", indexRoute);
+
   const {
     youtubeStore: {
-      // ytbVideos,
-      loadingYTBVideos,
-      fetchYTBVideos,
-      clearYTBVideos,
+      ytbPlaylists,
+      loadingYTBPlaylists,
+      fetchYTBPlaylists,
+      clearYTBPlaylists,
     },
   } = useStore();
 
   const [positionPage, setPositionPage] = useState(0);
 
   useEffect(() => {
-    fetchYTBVideos();
+    console.log("useEffect")
+    fetchYTBPlaylists();
 
     return () => {
-      clearYTBVideos();
+      clearYTBPlaylists();
     };
   }, []);
 
-  const onPageSelected = ({nativeEvent}) => {
+  const onPageSelected = ({ nativeEvent }) => {
     setPositionPage(nativeEvent?.position);
   };
 
-  if (loadingYTBVideos) {
-    return <LoadingComponent />;
+  if (loadingYTBPlaylists) {
+    return (
+      <View style={styles.container}>
+        <LoadingComponent color="white" />
+      </View>
+    );
   }
 
   return (
@@ -61,11 +53,14 @@ const HomeScreen = () => {
         orientation="vertical"
         showsVerticalScrollIndicator={false}
         onPageSelected={onPageSelected}>
-        {data?.map((item, index) => {
+        {ytbPlaylists?.items?.map((item, index) => {
           const isSelected = index === positionPage;
           return (
             <View key={index?.toString()} style={styles.page_container}>
-              <YoutubeComponent isPlay={isSelected} videoId={item?.uri} />
+              <YoutubeComponent
+                isPlay={isSelected}
+                videoId={item?.snippet?.resourceId?.videoId}
+              />
               <Text style={styles.txtScreen}>{`Screen ${index + 1}`}</Text>
             </View>
           );
@@ -77,11 +72,9 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height,
+    flex: 1,
     backgroundColor: 'black',
-    zIndex: 1,
-    alignSelf: 'stretch',
+    justifyContent: 'center',
   },
   vwPager: {
     flex: 1,
