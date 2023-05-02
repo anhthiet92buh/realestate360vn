@@ -6,8 +6,8 @@ const YoutubeComponent = ({isPlay, videoId}) => {
   const webViewProps = {
     allowsFullscreenVideo: true, // Cho phép xem toàn màn hình
     mediaPlaybackRequiresUserAction: false, // Tự động phát video khi tải lên
-    // scalesPageToFit: true, // Tùy chỉnh tỷ lệ phóng to/thu nhỏ trang web
-    // useWebKit: true, // Sử dụng WebViewKit (iOS)
+    scalesPageToFit: true, // Tùy chỉnh tỷ lệ phóng to/thu nhỏ trang web
+    useWebKit: true, // Sử dụng WebViewKit (iOS)
     javaScriptEnabled: true, // Cho phép chạy JavaScript
     domStorageEnabled: true, // Cho phép lưu trữ dữ liệu DOM
     allowsInlineMediaPlayback: true, // Cho phép phát lại video trong nội dung trang
@@ -40,7 +40,7 @@ const YoutubeComponent = ({isPlay, videoId}) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
   },
 });
 

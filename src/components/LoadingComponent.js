@@ -13,7 +13,6 @@ export default LoadingComponent;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
     paddingVertical: 5,
   },
 });

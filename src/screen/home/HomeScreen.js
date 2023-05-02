@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions, Text } from 'react-native';
-import { observer } from 'mobx-react';
-import { useNavigationState } from '@react-navigation/native'
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View, Dimensions, Text} from 'react-native';
+import {observer} from 'mobx-react';
+import {useNavigationState} from '@react-navigation/native';
 import VerticalViewPager from 'react-native-pager-view';
 
-import { YoutubeComponent, LoadingComponent } from '../../components';
-import { useStore } from '../../context';
+import {YoutubeComponent, LoadingComponent} from '../../components';
+import {useStore} from '../../context';
 
-const { width, height = height - 50 } = Dimensions.get('window');
+const {width, height = height - 50} = Dimensions.get('window');
 
 const HomeScreen = () => {
   const indexRoute = useNavigationState(state => state?.index);
-
-  console.log("indexRoute", indexRoute);
 
   const {
     youtubeStore: {
@@ -26,22 +24,21 @@ const HomeScreen = () => {
   const [positionPage, setPositionPage] = useState(0);
 
   useEffect(() => {
-    console.log("useEffect")
     fetchYTBPlaylists();
 
     return () => {
       clearYTBPlaylists();
     };
-  }, []);
+  }, [indexRoute]);
 
-  const onPageSelected = ({ nativeEvent }) => {
+  const onPageSelected = ({nativeEvent}) => {
     setPositionPage(nativeEvent?.position);
   };
 
   if (loadingYTBPlaylists) {
     return (
       <View style={styles.container}>
-        <LoadingComponent color="white" />
+        <LoadingComponent />
       </View>
     );
   }
@@ -73,7 +70,6 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     justifyContent: 'center',
   },
   vwPager: {
@@ -95,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   txtScreen: {
-    color: 'white',
+    color: 'black',
     alignSelf: 'center',
     fontSize: 22,
   },

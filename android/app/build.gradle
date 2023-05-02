@@ -100,8 +100,8 @@ android {
         applicationId "com.realestate"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "0.0.1"
+        versionCode 20230426
+        versionName "0.0.2"
     }
 
     splits {
@@ -161,6 +161,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-youtube-sdk')
+
     implementation "androidx.appcompat:appcompat:1.0.0"
     
     // The version of react-native is set by the React Native Gradle Plugin
