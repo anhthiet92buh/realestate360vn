@@ -161,8 +161,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-youtube-sdk')
-
     implementation "androidx.appcompat:appcompat:1.0.0"
     
     // The version of react-native is set by the React Native Gradle Plugin

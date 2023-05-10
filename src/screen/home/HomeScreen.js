@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Dimensions, Text} from 'react-native';
+import {StyleSheet, View, Dimensions, BackHandler} from 'react-native';
 import {observer} from 'mobx-react';
 import {useNavigationState} from '@react-navigation/native';
 import VerticalViewPager from 'react-native-pager-view';
@@ -26,8 +26,15 @@ const HomeScreen = () => {
   useEffect(() => {
     fetchYTBPlaylists();
 
+    const onBackPress = () => {
+      BackHandler.exitApp();
+      return true;
+    };
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
     return () => {
       clearYTBPlaylists();
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     };
   }, [indexRoute]);
 
@@ -38,7 +45,7 @@ const HomeScreen = () => {
   if (loadingYTBPlaylists) {
     return (
       <View style={styles.container}>
-        <LoadingComponent />
+        <LoadingComponent color={'white'} />
       </View>
     );
   }
@@ -58,7 +65,6 @@ const HomeScreen = () => {
                 isPlay={isSelected}
                 videoId={item?.snippet?.resourceId?.videoId}
               />
-              <Text style={styles.txtScreen}>{`Screen ${index + 1}`}</Text>
             </View>
           );
         })}
@@ -71,6 +77,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: 'black',
   },
   vwPager: {
     flex: 1,

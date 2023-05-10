@@ -1,6 +1,8 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
+
+const {width} = Dimensions.get('window');
 
 const YoutubeComponent = ({isPlay, videoId}) => {
   const webViewProps = {
@@ -13,26 +15,28 @@ const YoutubeComponent = ({isPlay, videoId}) => {
     allowsInlineMediaPlayback: true, // Cho phép phát lại video trong nội dung trang
   };
 
+  const initialPlayerParams = {
+    fullscreen: true,
+    fs: 0,
+    rel: 0,
+    loop: 0,
+    controls: 1,
+    modestbranding: 1,
+    disablekb: 1,
+    iv_load_policy: 3,
+  };
+
   return (
     <View style={styles.container}>
       <YoutubePlayer
-        height={300}
+        width={width}
+        height={220}
         play={isPlay}
         videoId={videoId}
         pointerEvents="none"
-        fullscreen={true}
         loop={true}
-        initialPlayerParams={{
-          fullscreen: true,
-          fs: 0,
-          loop: 1,
-          // controls:false,
-          showClosedCaptions: true,
-          modestbranding: true,
-          rel: true,
-        }}
+        initialPlayerParams={initialPlayerParams}
         webViewProps={webViewProps}
-        allowPictureInPicture={false}
       />
     </View>
   );
@@ -41,6 +45,8 @@ const YoutubeComponent = ({isPlay, videoId}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
